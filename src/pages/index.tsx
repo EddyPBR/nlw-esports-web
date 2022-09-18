@@ -1,11 +1,22 @@
 import type { NextPage } from "next";
 import NextImage from "next/image";
+import { useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
 
-import { MagnifyingGlassPlus } from "phosphor-react";
 import { CreateAdBanner } from "~components/CreateAdBanner";
 import { GameBanner } from "~components/GameBanner";
 
+import { fetchHighlightedGames, HighlightedGamesDTO } from "~services/v1/games";
+
 const Home: NextPage = () => {
+  const [games, setGames] = useState<HighlightedGamesDTO[]>([]);
+
+  useEffect(() => {
+    fetchHighlightedGames()
+      .then((result) => setGames(result.data))
+      .catch((error) => toast.error(error?.message));
+  }, []);
+
   return (
     <main className="max-w-[1344px] mx-auto flex flex-col items-center mt-20">
       <NextImage
@@ -24,16 +35,14 @@ const Home: NextPage = () => {
       </h1>
 
       <section className="grid grid-cols-6 gap-6 mt-20">
-        {Array(6)
-          .fill(null)
-          .map((_, index) => (
-            <GameBanner
-              adsCount={index + 2}
-              bannerUrl={`/images/image%20${index + 1}.png`}
-              title={`Game ${index + 1}`}
-              key={index + 1}
-            />
-          ))}
+        {games.map((game) => (
+          <GameBanner
+            key={game.id}
+            title={game.title}
+            bannerUrl={game.bannerUrl}
+            adsCount={game.ads.length}
+          />
+        ))}
       </section>
 
       <CreateAdBanner />
