@@ -1,7 +1,20 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-  reactStrictMode: true,
-  swcMinify: true,
-}
 
-module.exports = nextConfig
+module.exports = withPlugins([
+  {
+    reactStrictMode: true,
+    swcMinify: true,
+  },
+  [
+    withPWA,
+    {
+      pwa: {
+        disable: process.env.NODE_ENV !== "production",
+        register: true,
+        scope: "/",
+        dest: "public",
+        sw: "/service-worker.js",
+      },
+    },
+  ],
+]);
