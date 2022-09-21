@@ -1,15 +1,17 @@
 import { FC } from "react";
-import { Portal, Overlay, Content, Title, Close } from "@radix-ui/react-dialog";
+import * as Dialog from "@radix-ui/react-dialog";
 import { GameController } from "phosphor-react";
 
 import { Input } from "~components/Form/Input";
 
 export const CreateAdModal: FC = () => {
   return (
-    <Portal>
-      <Overlay className="bg-black/60 inset-0 fixed">
-        <Content className="fixed bg-[#2A2634] py-8 px-10 text-white top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-lg max-w-lg shadow-black/25">
-          <Title className="text-3xl font-black">Publique um anúncio</Title>
+    <Dialog.Portal>
+      <Dialog.Overlay className="bg-black/60 inset-0 fixed">
+        <Dialog.Content className="fixed bg-[#2A2634] py-8 px-10 text-white top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-lg max-w-lg shadow-black/25">
+          <Dialog.Title className="text-3xl font-black">
+            Publique um anúncio
+          </Dialog.Title>
 
           <form className="mt-8 flex flex-col gap-4">
             <div className="flex flex-col gap-2">
@@ -101,8 +103,18 @@ export const CreateAdModal: FC = () => {
                 <label htmlFor="hourStart">Qual horário do dia?</label>
 
                 <div className="grid grid-cols-2 gap-2">
-                  <Input id="hourStart" name="hourStart" type="time" placeholder="De" />
-                  <Input id="hourEnd" name="hourEnd" type="time" placeholder="Até" />
+                  <Input
+                    id="hourStart"
+                    name="hourStart"
+                    type="time"
+                    placeholder="De"
+                  />
+                  <Input
+                    id="hourEnd"
+                    name="hourEnd"
+                    type="time"
+                    placeholder="Até"
+                  />
                 </div>
               </div>
             </div>
@@ -115,16 +127,21 @@ export const CreateAdModal: FC = () => {
             </div>
 
             <footer className="mt-4 flex justify-end gap-4">
-              <Close className="bg-zinc-500 px-5 h-12 rounded-md font-semibold hover:bg-zinc-600 transition-colors">Cancelar</Close>
+              <Dialog.Close className="bg-zinc-500 px-5 h-12 rounded-md font-semibold hover:bg-zinc-600 transition-colors">
+                Cancelar
+              </Dialog.Close>
 
-              <button className="bg-violet-500 px-5 h-12 rounded-md font-semibold flex items-center gap-3 hover:bg-violet-600 transition-colors" type="submit">
+              <button
+                className="bg-violet-500 px-5 h-12 rounded-md font-semibold flex items-center gap-3 hover:bg-violet-600 transition-colors"
+                type="submit"
+              >
                 <GameController size={24} />
                 Encontrar duo
               </button>
             </footer>
           </form>
-        </Content>
-      </Overlay>
-    </Portal>
+        </Dialog.Content>
+      </Dialog.Overlay>
+    </Dialog.Portal>
   );
 };
