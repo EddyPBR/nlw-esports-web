@@ -1,20 +1,15 @@
 /** @type {import('next').NextConfig} */
 
-module.exports = withPlugins([
-  {
-    reactStrictMode: true,
-    swcMinify: true,
-  },
-  [
-    withPWA,
-    {
-      pwa: {
-        disable: process.env.NODE_ENV !== "production",
-        register: true,
-        scope: "/",
-        dest: "public",
-        sw: "/service-worker.js",
-      },
-    },
-  ],
-]);
+const withPWA = require("next-pwa")({
+  dest: "public",
+  disable: process.env.NODE_ENV !== "production",
+  register: true,
+  scope: "/",
+  dest: "public",
+  sw: "/service-worker.js",
+});
+
+module.exports = withPWA({
+  reactStrictMode: true,
+  swcMinify: true,
+});
